@@ -1,14 +1,8 @@
 import scala.annotation.tailrec
 
-def id(x: Int): Int = x
+def sumInts(a: Int, b: Int): Int = sum(x => x, a, b)
 
-def sumInts(a: Int, b: Int): Int = sum(id, a, b)
-
-def cube(x: Int): Int = x * x * x
-
-cube(3)
-
-def sumCubes(a: Int, b: Int): Int = sum(cube, a, b)
+def sumCubes(a: Int, b: Int): Int = sum(x => x * x * x, a, b)
 
 sumCubes(2, 3)
 
