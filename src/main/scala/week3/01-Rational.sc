@@ -14,10 +14,18 @@ x.subElegant(y)
 
 x.sub(y).sub(z)
 
-class Rational(x: Int, y: Int) {
-  def numer: Int = x
+y.add(y)
 
-  def denom: Int = y
+class Rational(x: Int, y: Int) {
+
+  val g = gcd(x, y)
+
+  def numer: Int = x / g
+
+  def denom: Int = y / g
+
+  private def gcd(a: Int, b: Int): Int =
+    if (b == 0) a else gcd(b, a % b)
 
   def add(that: Rational): Rational =
     new Rational(numer * that.denom + that.numer * denom,
