@@ -5,20 +5,20 @@ val z = new Rational(3, 2)
 x.numer
 x.denom
 
-x add y
+x + y
 
-val neg = x.neg
+val neg = -x
 neg.numer
 neg.denom
 
-x sub y
+x - y
 x subElegant y
 
-x sub y sub z
+x - y - z
 
-y add y
+y + y
 
-x less y
+x < y
 
 x max y
 
@@ -42,26 +42,26 @@ class Rational(x: Int, y: Int) {
 
   def this(n: Int) = this(n, 1)
 
-  def add(that: Rational): Rational =
+  def +(that: Rational): Rational =
     new Rational(numer * that.denom + that.numer * denom,
       denom * that.denom)
 
-  def sub(that: Rational): Rational =
+  def -(that: Rational): Rational =
     new Rational(numer * that.denom - that.numer * denom,
       denom * that.denom)
 
-  // A more elegant version of sub
+  // A more elegant version of -
   def subElegant(that: Rational): Rational =
-    add(that.neg)
+    this + -that
 
-  def neg: Rational =
+  def unary_- : Rational =
     new Rational(-numer, denom)
 
-  def less(that: Rational): Boolean =
+  def <(that: Rational): Boolean =
     numer * that.denom < that.numer * denom
 
   def max(that: Rational): Rational =
-    if (this.less(that)) that else this
+    if (this.<(that)) that else this
 
   override def toString: String =
     numer + "/" + denom
