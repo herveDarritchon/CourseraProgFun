@@ -5,22 +5,22 @@ val z = new Rational(3, 2)
 x.numer
 x.denom
 
-x.add(y)
+x add y
 
 val neg = x.neg
 neg.numer
 neg.denom
 
-x.sub(y)
-x.subElegant(y)
+x sub y
+x subElegant y
 
-x.sub(y).sub(z)
+x sub y sub z
 
-y.add(y)
+y add y
 
-x.less(y)
+x less y
 
-x.max(y)
+x max y
 
 new Rational(3)
 
