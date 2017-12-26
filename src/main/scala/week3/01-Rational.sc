@@ -7,7 +7,9 @@ x.denom
 
 x.add(y)
 
-x.neg
+val neg = x.neg
+neg.numer
+neg.denom
 
 x.sub(y)
 x.subElegant(y)
@@ -16,16 +18,29 @@ x.sub(y).sub(z)
 
 y.add(y)
 
+x.less(y)
+
+x.max(y)
+
+new Rational(3)
+
 class Rational(x: Int, y: Int) {
+  require(y != 0, "Denominator must be nonzero")
 
   val g = gcd(x, y)
+  assert(g > 0, "GCD must be positive")
 
   def numer: Int = x / g
 
   def denom: Int = y / g
 
+  private def abs(x: Int): Int =
+    if (x >= 0) x else -x
+
   private def gcd(a: Int, b: Int): Int =
-    if (b == 0) a else gcd(b, a % b)
+    if (b == 0) abs(a) else gcd(b, a % b)
+
+  def this(n: Int) = this(n, 1)
 
   def add(that: Rational): Rational =
     new Rational(numer * that.denom + that.numer * denom,
@@ -41,6 +56,12 @@ class Rational(x: Int, y: Int) {
 
   def neg: Rational =
     new Rational(-numer, denom)
+
+  def less(that: Rational): Boolean =
+    numer * that.denom < that.numer * denom
+
+  def max(that: Rational): Rational =
+    if (this.less(that)) that else this
 
   override def toString: String =
     numer + "/" + denom
