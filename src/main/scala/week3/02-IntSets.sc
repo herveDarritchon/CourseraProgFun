@@ -1,14 +1,4 @@
 
-val t1: IntSet = new NonEmpty(3, new Empty(), new Empty())
-val t2: IntSet = t1.incl(4)
-t2.incl(6)
-val t3 = new NonEmpty(2, new Empty(), new Empty())
-
-val e1 = new Empty()
-
-e1.union(t2)
-
-t2 union t3
 /**
   * Created by Hervé Darritchon on 27/12/2017.
   *
@@ -22,8 +12,8 @@ abstract class IntSet {
   def union(other: IntSet): IntSet
 }
 
-class Empty extends IntSet {
-  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)
+object Empty extends IntSet {
+  def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
 
   def contains(x: Int): Boolean = false
 
@@ -48,3 +38,15 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
   override def union(other: IntSet) =
     left union right union other incl elem
 }
+
+
+val t1: IntSet = new NonEmpty(3, Empty, Empty)
+val t2: IntSet = t1.incl(4)
+t2.incl(6)
+val t3 = new NonEmpty(2, Empty, Empty)
+
+val e1 = Empty
+
+e1.union(t2)
+
+t2 union t3
