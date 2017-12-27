@@ -2,7 +2,13 @@
 val t1: IntSet = new NonEmpty(3, new Empty(), new Empty())
 val t2: IntSet = t1.incl(4)
 t2.incl(6)
+val t3 = new NonEmpty(2, new Empty(), new Empty())
 
+val e1 = new Empty()
+
+e1.union(t2)
+
+t2 union t3
 /**
   * Created by Hervé Darritchon on 27/12/2017.
   *
@@ -13,6 +19,7 @@ abstract class IntSet {
 
   def contains(x: Int): Boolean
 
+  def union(other: IntSet): IntSet
 }
 
 class Empty extends IntSet {
@@ -22,6 +29,7 @@ class Empty extends IntSet {
 
   override def toString: String = ","
 
+  override def union(other: IntSet) = other
 }
 
 class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
@@ -37,4 +45,6 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
 
   override def toString: String = "{" + left + elem + right + "}"
 
+  override def union(other: IntSet) =
+    left union right union other incl elem
 }
