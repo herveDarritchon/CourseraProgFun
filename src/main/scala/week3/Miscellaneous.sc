@@ -18,4 +18,8 @@ def myDifferentError(msg: String) =
   else
     throw new Error(msg)
 
+val x = null
+val str : String = x
+val set : Set[String] = null
+
 Fake.error("what fuked up !!")
