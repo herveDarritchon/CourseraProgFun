@@ -13,9 +13,9 @@ trait List[+T] {
 object Nil extends List[Nothing] {
   def isEmpty: Boolean = false
 
-  def head = throw new Error ("No Head for an Empty List")
+  def head : Nothing = throw new NoSuchElementException ("No Head for an Empty List")
 
-  def tail: List[Nothing] = throw new Error ("No Tail for an Empty List")
+  def tail: Nothing = throw new NoSuchElementException ("No Tail for an Empty List")
 
   override def toString : String = "Nil"
 }

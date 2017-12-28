@@ -13,9 +13,9 @@ trait IntList {
 object IntNil extends IntList {
   def isEmpty: Boolean = false
 
-  def head = throw new Error ("No Head for an Empty List")
+  def head : Nothing = throw new NoSuchElementException ("No Head for an Empty List")
 
-  def tail: IntList = throw new Error ("No Tail for an Empty List")
+  def tail: Nothing = throw new NoSuchElementException ("No Tail for an Empty List")
 
   override def toString : String = "Nil"
 }
