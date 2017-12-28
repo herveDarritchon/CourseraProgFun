@@ -6,22 +6,32 @@ package week4
   */
 trait List[+T] {
   def isEmpty: Boolean
+
   def head: T
+
   def tail: List[T]
+
+  def nth(idx: Int): T
 }
 
 object Nil extends List[Nothing] {
   def isEmpty: Boolean = false
 
-  def head : Nothing = throw new NoSuchElementException ("No Head for an Empty List")
+  def head: Nothing = throw new NoSuchElementException("No Head for an Empty List")
 
-  def tail: Nothing = throw new NoSuchElementException ("No Tail for an Empty List")
+  def tail: Nothing = throw new NoSuchElementException("No Tail for an Empty List")
 
-  override def toString : String = "Nil"
+  def nth(idx: Int): Nothing = throw new IndexOutOfBoundsException("No element inside a Nil List")
+
+  override def toString: String = "Nil"
 }
 
-class Cons[T]( val head: T, val tail: List[T]) extends List[T] {
+class Cons[T](val head: T, val tail: List[T]) extends List[T] {
   def isEmpty: Boolean = true
 
-  override def toString : String = "{" + head + "," + tail.toString + "}"
+  def nth(idx: Int): T =
+    if (idx == 0) head
+    else this.tail.nth(idx - 1)
+
+  override def toString: String = "{" + head + "," + tail.toString + "}"
 }
