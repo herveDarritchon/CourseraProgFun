@@ -10,7 +10,7 @@ abstract class Nat {
 
   def predecessor: Nat
 
-  def successor: Nat
+  def successor: Nat = new Succ(this)
 
   def +(that: Nat): Nat
 
@@ -21,8 +21,6 @@ object Zero extends Nat {
   override def isZero: scala.Boolean = true
 
   override def predecessor: Nat = throw new NoSuchElementException("Natural are only positive")
-
-  override def successor: Nat = new Succ(Zero)
 
   override def +(that: Nat): Nat = that
 
@@ -37,8 +35,6 @@ class Succ(n: Nat) extends Nat {
   override def isZero: scala.Boolean = false
 
   override def predecessor: Nat = n
-
-  override def successor: Nat = new Succ(this)
 
   override def +(that: Nat): Nat = new Succ(n + that)
 
