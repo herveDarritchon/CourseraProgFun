@@ -18,7 +18,7 @@ abstract class Boolean {
 
   def !=(x: Boolean): Boolean = ifThenElse(!x, x)
 
-  def < (x: Boolean) : Boolean = ifThenElse(False, x)
+  def <(x: Boolean): Boolean = ifThenElse(False, x)
 
   override def toString: String
 }
@@ -27,12 +27,10 @@ object True extends Boolean {
   override def ifThenElse[T](t: T, e: T): T = t
 
   override def toString: String = "true"
-
 }
 
 object False extends Boolean {
   override def ifThenElse[T](t: T, e: T): T = e
 
   override def toString: String = "false"
-
 }
