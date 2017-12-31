@@ -18,6 +18,8 @@ abstract class Boolean {
 
   def !=(x: Boolean): Boolean = ifThenElse(!x, x)
 
+  def < (x: Boolean) : Boolean = ifThenElse(False, x)
+
   override def toString: String
 }
 
