@@ -9,17 +9,15 @@ abstract class IntSet {
 
   def contains(x: Int): Boolean
 
-  def union(other: IntSet): IntSet
-}
+  def union[S <: IntSet](other: S): IntSet
 
-object Empty extends IntSet {
-  def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
+  /**
+    * Assert that all elements of the inset are positives
+    *
+    * @return
+    */
+  def assertAllPost(): IntSet
 
-  def contains(x: Int): Boolean = false
-
-  override def toString: String = ","
-
-  override def union(other: IntSet) = other
 }
 
 class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
@@ -35,8 +33,34 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
 
   override def toString: String = "{" + left + elem + right + "}"
 
-  override def union(other: IntSet) =
+  override def union[S <: IntSet](other: S) =
     left union right union other incl elem
+
+  /**
+    * Assert that all elements of the inset are positives
+    *
+    * @return
+    */
+  override def assertAllPost() =
+    if (elem >= 0) new NonEmpty(elem, left.assertAllPost(), right.assertAllPost())
+    else throw new Error("All elements are not positives !")
+}
+
+object Empty extends IntSet {
+  def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
+
+  def contains(x: Int): Boolean = false
+
+  override def toString: String = ","
+
+  override def union[S <: IntSet](other: S) = other
+
+  /**
+    * Assert that all elements of the inset are positives
+    *
+    * @return
+    */
+  override def assertAllPost() = this
 }
 
 
@@ -49,4 +73,8 @@ val e1 = Empty
 
 e1.union(t2)
 
-t2 union t3
+val t4 = t2 union t3
+
+t4.assertAllPost()
+
+t2.incl(-2).union(t3).assertAllPost()
