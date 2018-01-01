@@ -35,3 +35,12 @@ class Cons[T](val head: T, val tail: List[T]) extends List[T] {
 
   override def toString: String = "{" + head + "," + tail.toString + "}"
 }
+
+object List {
+
+  def apply[T]: List[T] = Nil
+
+  def apply[T](elem: T): List[T] = new Cons[T](elem, Nil)
+
+  def apply[T](elem1: T, elem2: T): List[T] = new Cons[T](elem2, new Cons(elem1, Nil))
+}

@@ -20,14 +20,18 @@ object ListMain {
     val ls: List[String] = new Cons[String]("Bonjour", new Cons[String]("Ca va ?", new Cons[String]("Au revoir", Nil)))
     println("Generic List of String : " + ls)
 
-    println(nth(2, ls))
+/*    println(nth(2, ls))
     println(nth(-1, ls))
 
     println(ls.nth(2))
-    println(ls.nth(-1))
+    println(ls.nth(-1))*/
 
     val lb: List[Boolean] = singleton(true)
     println("Generic List of Boolean : " + lb)
+
+    println (List())
+    println (List(1))
+    println (List(1,2))
 
   }
 }
