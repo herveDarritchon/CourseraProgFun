@@ -1,4 +1,4 @@
-package week4.decomposition
+package week4.decomposition_full_expressive
 
 /**
   * Created by Hervé Darritchon on 07/01/2018.
@@ -122,6 +122,6 @@ object Test {
   def main(args: Array[String]): Unit = {
     println(eval(Sum(Number(1), Number(2))))
     println(eval(Prod(Number(3), Number(2))))
-    println(eval(Prod(Var("x",5), Number(2))))
+    println(eval(Prod(Var("x", 5), Number(2))))
   }
 }
