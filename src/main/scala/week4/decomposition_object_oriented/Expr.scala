@@ -1,10 +1,12 @@
-package week4.decomposition_type_tests
+package week4.decomposition_object_oriented
 
 /**
   * Created by Hervé Darritchon on 07/01/2018.
   *
   */
 trait Expr {
+
+  def eval: Int
 }
 
 object Number {
@@ -15,6 +17,8 @@ class Number(n: Int) extends Expr {
 
   def numValue: Int = n
 
+  def eval: Int = n
+
 }
 
 object Var {
@@ -24,6 +28,8 @@ object Var {
 class Var(x: String, v: Int) extends Expr {
 
   def value: Int = v
+
+  def eval: Int = v
 
 }
 
@@ -43,24 +49,22 @@ abstract class Operation(l: Expr, r: Expr) extends Expr {
 }
 
 class Sum(l: Expr, r: Expr) extends Operation(l, r) {
+
+  def eval: Int = l.eval + r.eval
+
 }
 
 class Prod(l: Expr, r: Expr) extends Operation(l, r) {
+
+  def eval: Int = l.eval * r.eval
+
 }
 
-object TestTypeCasts {
-
-  def eval(e: Expr): Int = {
-    if (e.isInstanceOf[Number]) e.asInstanceOf[Number].numValue
-    else if (e.isInstanceOf[Sum]) eval(e.asInstanceOf[Operation].leftOp) + eval(e.asInstanceOf[Operation].rightOp)
-    else if (e.isInstanceOf[Prod]) eval(e.asInstanceOf[Operation].leftOp) * eval(e.asInstanceOf[Operation].rightOp)
-    else if (e.isInstanceOf[Var]) e.asInstanceOf[Var].value
-    else throw new Error("Unknown expression")
-  }
+object TestObjectOriented {
 
   def main(args: Array[String]): Unit = {
-    println(eval(Sum(Number(1), Number(2))))
-    println(eval(Prod(Number(3), Number(2))))
-    println(eval(Prod(Var("x", 5), Number(2))))
+    println(Sum(Number(1), Number(2)).eval)
+    println(Prod(Number(3), Number(2)).eval)
+    println(Prod(Var("x", 5), Number(2)).eval)
   }
 }

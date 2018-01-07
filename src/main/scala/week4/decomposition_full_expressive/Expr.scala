@@ -109,7 +109,7 @@ class Prod(l: Expr, r: Expr) extends Operation(l, r) {
 
 }
 
-object Test {
+object TestFullExpressive {
 
   def eval(e: Expr): Int = {
     if (e.isNumber) e.numValue
