@@ -9,8 +9,13 @@ object TestList {
   def insert(x: Int, xs: List[Int]): List[Int] = xs match {
     case Nil => x :: Nil
     case (y :: ys) =>
-      if (x > y) y :: insert(x, xs.tail)
-      else x :: y :: ys
+      if (x > y) y :: insert(x, ys)
+      else x :: xs
+    /* Using Pattern matching instead of the if else
+    case (y :: ys) => (x > y) match {
+      case true => x :: xs
+      case false => y :: insert(x, xs.tail)
+    }*/
   }
 
   def isort(xs: List[Int]): List[Int] = xs match {
