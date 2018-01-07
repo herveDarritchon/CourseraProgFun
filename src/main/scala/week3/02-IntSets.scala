@@ -1,4 +1,4 @@
-
+package week3
 /**
   * Created by Hervé Darritchon on 27/12/2017.
   *
@@ -17,7 +17,6 @@ abstract class IntSet {
     * @return
     */
   def assertAllPost(): IntSet
-
 }
 
 class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
@@ -46,8 +45,8 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
     else throw new Error("All elements are not positives !")
 }
 
-object Empty extends IntSet {
-  def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
+class Empty extends IntSet {
+  def incl(x: Int): IntSet = new NonEmpty(x, new Empty(), new Empty())
 
   def contains(x: Int): Boolean = false
 
@@ -63,18 +62,29 @@ object Empty extends IntSet {
   override def assertAllPost() = this
 }
 
+object test {
 
-val t1: IntSet = new NonEmpty(3, Empty, Empty)
-val t2: IntSet = t1.incl(4)
-t2.incl(6)
-val t3 = new NonEmpty(2, Empty, Empty)
+  def main(args: Array[String]): Unit = {
+    val t1: IntSet = new NonEmpty(3, new Empty(), new Empty())
+    val t2: IntSet = t1.incl(4)
+    t2.incl(6)
+    val t3 = new NonEmpty(2, new Empty(), new Empty())
 
-val e1 = Empty
+    val e1 = new Empty()
 
-e1.union(t2)
+    e1.union(t2)
 
-val t4 = t2 union t3
+    val t4 = t2 union t3
 
-t4.assertAllPost()
+    t4.assertAllPost()
 
-t2.incl(-2).union(t3).assertAllPost()
+    t2.incl(-2).union(t3).assertAllPost()
+  }
+
+  // Array non convariance in Scala
+  /*val a: Array[NonEmpty] = Array(new NonEmpty(1, Empty, Empty))
+  val b: Array[IntSet] = a
+  b(0) = Empty
+  val s: NonEmpty = a(0)*/
+
+}

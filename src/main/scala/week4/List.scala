@@ -1,5 +1,7 @@
 package week4
 
+import week3.{Empty, IntSet, NonEmpty}
+
 /**
   * Created by Hervé Darritchon on 28/12/2017.
   *
@@ -12,6 +14,8 @@ trait List[+T] {
   def tail: List[T]
 
   def nth(idx: Int): T
+
+  def prepend[U >: T](elem: U): List[U] = new Cons(elem, this)
 }
 
 object Nil extends List[Nothing] {
@@ -43,4 +47,16 @@ object List {
   def apply[T](elem: T): List[T] = new Cons[T](elem, Nil)
 
   def apply[T](elem1: T, elem2: T): List[T] = new Cons[T](elem2, new Cons(elem1, Nil))
+
+}
+
+object test {
+
+  def f(xs: List[NonEmpty], x: Empty): List[IntSet] = xs prepend x
+
+  def main(args: Array[String]): Unit = {
+    val l: List[NonEmpty] = List(new NonEmpty(1, new Empty(), new Empty()))
+    println(f(l, new Empty()))
+
+  }
 }
