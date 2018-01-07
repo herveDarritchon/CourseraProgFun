@@ -7,6 +7,8 @@ package week4.decomposition_object_oriented
 trait Expr {
 
   def eval: Int
+
+  def show: String
 }
 
 object Number {
@@ -19,6 +21,8 @@ class Number(n: Int) extends Expr {
 
   def eval: Int = n
 
+  override def show: String = String.valueOf(n)
+
 }
 
 object Var {
@@ -27,10 +31,9 @@ object Var {
 
 class Var(x: String, v: Int) extends Expr {
 
-  def value: Int = v
-
   def eval: Int = v
 
+  override def show: String = x
 }
 
 object Sum {
@@ -52,19 +55,25 @@ class Sum(l: Expr, r: Expr) extends Operation(l, r) {
 
   def eval: Int = l.eval + r.eval
 
+  override def show: String = l.show + " + " + r.show
 }
 
 class Prod(l: Expr, r: Expr) extends Operation(l, r) {
 
   def eval: Int = l.eval * r.eval
 
+  override def show: String = l.show + " * " + r.show
+
 }
 
 object TestObjectOriented {
 
   def main(args: Array[String]): Unit = {
-    println(Sum(Number(1), Number(2)).eval)
-    println(Prod(Number(3), Number(2)).eval)
-    println(Prod(Var("x", 5), Number(2)).eval)
+    val e1 = Sum(Number(1), Number(2))
+    println(e1.show + " = " + e1.eval)
+    val e2 = Prod(Number(3), Number(2))
+    println(e2.show + " = " + e2.eval)
+    val e3 = Prod(Var("x", 5), Number(2))
+    println(e3.show + " = " + e3.eval)
   }
 }
